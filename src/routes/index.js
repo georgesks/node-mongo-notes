@@ -4,13 +4,13 @@ const router = express.Router();
 
 router.get("/", (req, res) => {
 
-    res.send("hello world aaaa");
+    res.render("index");    
 
 });
 
 router.get("/about", (req, res) => {
 
-    res.send("about");
+    res.render("about");
 
 });
 

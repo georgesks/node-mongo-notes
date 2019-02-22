@@ -3,13 +3,13 @@ const router = express.Router();
 
 router.get("/users/signin", (req, res) => {
 
-    res.send("Ingresando a la app");
+    res.render("users/signin");
 
 });
 
 router.get("/users/signup", (req, res) => {
 
-    res.send("Formulario de autenticacion");
+    res.render("users/signup");
 
 });
 
