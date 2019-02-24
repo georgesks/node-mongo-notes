@@ -6,7 +6,8 @@
             Edit Note
         </div>
         <div class="card-body">
-            <form action="">
+            <form action="/notes/edit-note/{{note._id}}?_method=PUT" method="POST">
+                <input type="hidden" name="_method" value="PUT">
                 <div class="form-group">
                     <input type="text" name="title" placeholder="Title" autofocus class="form-control" value="{{note.title}}">
                 </div>
