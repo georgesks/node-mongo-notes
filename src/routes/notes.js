@@ -1,13 +1,15 @@
 const express = require("express");
 const router = express.Router();
 
+const Note = require("../models/Note");
+
 router.get("/notes/add", (req, res) => {
 
     res.render("notes/new-note");
 
 });
 
-router.post("/notes/new-note", (req, res) => {
+router.post("/notes/new-note", async (req, res) => {
 
     const { title, description } = req.body;
     const errors = [];
@@ -28,7 +30,10 @@ router.post("/notes/new-note", (req, res) => {
         });
     }else{
 
-        res.json({msg: "Ok"});
+        const NewNote = new Note({title, description});
+        await NewNote.save();
+        
+        res.redirect("/notes");
 
     }
 
@@ -36,9 +41,21 @@ router.post("/notes/new-note", (req, res) => {
 
 });
 
-router.get("/notes", (req, res) => {
+router.get("/notes", async (req, res) => {
 
-    res.send("Notas desde la bd");
+    const notes = await Note.find().sort({date: "desc"});    
+
+    res.render("notes/all-notes", {
+        notes
+    });
+
+});
+
+router.get("/notes/edit/:id", async (req, res) => {
+
+    const note = await Note.findById(req.params.id);
+
+    res.render("notes/edit-note", {note});
 
 });
 
